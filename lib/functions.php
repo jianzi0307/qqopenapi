@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * 当前用户ip地址
+ * @return string
+ */
+function get_ip()
+{
+    $onlineip='';
+    if(getenv('HTTP_CLIENT_IP')&&strcasecmp(getenv('HTTP_CLIENT_IP'),'unknown')){
+        $onlineip=getenv('HTTP_CLIENT_IP');
+    } elseif(getenv('HTTP_X_FORWARDED_FOR')&&strcasecmp(getenv('HTTP_X_FORWARDED_FOR'),'unknown')){
+        $onlineip=getenv('HTTP_X_FORWARDED_FOR');
+    } elseif(getenv('REMOTE_ADDR')&&strcasecmp(getenv('REMOTE_ADDR'),'unknown')){
+        $onlineip=getenv('REMOTE_ADDR');
+    } elseif(isset($_SERVER['REMOTE_ADDR'])&&$_SERVER['REMOTE_ADDR']&&strcasecmp($_SERVER['REMOTE_ADDR'],'unknown')){
+        $onlineip=$_SERVER['REMOTE_ADDR'];
+    }
+    return $onlineip;
+}
+
+/**
+ * @param object $sdk OpenApiV3 Object
+ * @param string $openid openid
+ * @param string $openkey openkey
+ * @param string $pf 平台
+ * @return array
+ */
+function get_user_info($sdk, $openid, $openkey, $pf)
+{
+	$params = array(
+		'openid' => $openid,
+		'openkey' => $openkey,
+		'pf' => $pf,
+	);
+	
+	$script_name = '/v3/user/get_info';
+	return $sdk->api($script_name, $params,'post');
+}
+
+/**
+ * 用户是否已登录
+ * @param $sdk
+ * @param $openid
+ * @param $openkey
+ * @param $pf
+ * @return mixed
+ */
+function user_is_login($sdk, $openid, $openkey, $pf)
+{
+    $params = array(
+        'openid' => $openid,
+        'openkey' => $openkey,
+        'pf' => $pf,
+    );
+
+    $script_name = 'v3/user/is_login';
+    return $sdk->api($script_name, $params, 'post');
+}
+
+/**
+ * 支付
+ * @param $sdk
+ * @param $openid
+ * @param $openkey
+ * @param $pf
+ * @param $data
+ * @return mixed
+ */
+function pay_buy($sdk, $openid, $openkey, $pf, $data)
+{
+    $params = array(
+        'openid' => $openid,
+        'openkey' => $openkey,
+        'pf' => $pf
+    );
+    $reqData = array_merge($params, $data);
+    $script_name = '/v3/pay/buy_goods';
+    return $sdk->api($script_name, $reqData, 'post');
+}
