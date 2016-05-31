@@ -36,14 +36,14 @@ $pf = trim($_GET['pf']);
         attributes.id="Loading";
         attributes.name="Loading";
         attributes.align="middle";
-        //swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.7.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
+        swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.7.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
     </script>
 </head>
 <body>
 <div id="content" class="content-box">
-    <div>
+    <!--<div>
         <button id="pay_buy">购买</button>
-    </div>
+    </div>-->
     <div id="flasharea" class="flasharea">
         <div id="main">Loading Game...</div>
     </div>
@@ -71,41 +71,45 @@ $pf = trim($_GET['pf']);
         }
         return value;
     }
-    $(function(){
-        $('#pay_buy').on('click', function(){
-            var openid = getParams('openid');
-            var openkey = getParams('openkey');
-            var pf = getParams('pf');
-            var serverid = getParams('serverid');
-            var pfkey = getParams('pfkey');
 
-            var url = 'http://s14.app1105344749.qqopenapp.com/payment/';
-            var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey };
-            $.get(url, data, function(res) {
-                var jsonObj = JSON.parse(res);
-                if (jsonObj.ret == 0) {
-                    var url_params = jsonObj.url_params;
-                    fusion2.dialog.buy({
-                        disturb : true,
-                        param : url_params,
-                        sandbox : true,
-                        context : "xyzml",
-                        onSuccess : function (opt) {
-                            alert('onSuccess');
-                        },
-                        onCancel : function (opt) {
-                        },
-                        onSend : function(opt) {
-                        },
-                        onClose : function (opt) {
-                        }
-                    });
-                } else {
-                    alert('error: ' + jsonObj.ret + ' :: ' + jsonObj.msg);
-                }
-            });
+    function openChargeUrl()
+    {
+        var openid = getParams('openid');
+        var openkey = getParams('openkey');
+        var pf = getParams('pf');
+        var serverid = getParams('serverid');
+        var pfkey = getParams('pfkey');
+
+        var url = 'http://s14.app1105344749.qqopenapp.com/payment/';
+        var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey };
+        $.get(url, data, function(res) {
+            var jsonObj = JSON.parse(res);
+            if (jsonObj.ret == 0) {
+                var url_params = jsonObj.url_params;
+                fusion2.dialog.buy({
+                    disturb : true,
+                    param : url_params,
+                    sandbox : true,
+                    context : "xyzml",
+                    onSuccess : function (opt) {
+                    },
+                    onCancel : function (opt) {
+                    },
+                    onSend : function(opt) {
+                    },
+                    onClose : function (opt) {
+                    }
+                });
+            } else {
+                alert('error: ' + jsonObj.ret + ' :: ' + jsonObj.msg);
+            }
         });
-    });
+    }
+    /*$(function(){
+        $('#pay_buy').on('click', function(){
+            openChargeUrl();
+        });
+    });*/
 </script>
 </body>
 </html>
