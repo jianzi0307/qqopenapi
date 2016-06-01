@@ -78,3 +78,23 @@ function pay_buy($sdk, $openid, $openkey, $pf, $data)
     $script_name = '/v3/pay/buy_goods';
     return $sdk->api($script_name, $reqData, 'post');
 }
+
+/**
+ * 通知支付结果
+ * @param $sdk
+ * @param $openid
+ * @param $openkey
+ * @param $pf
+ * @param $data
+ */
+function confirm_delivery($sdk, $openid, $openkey, $pf, $data)
+{
+    $params = array(
+        'openid' => $openid,
+        'openkey' => $openkey,
+        'pf' => $pf
+    );
+    $reqData = array_merge($params, $data);
+    $script_name = '/v3/pay/confirm_delivery';
+    return $sdk->api($script_name, $reqData, 'post', 'https');
+}

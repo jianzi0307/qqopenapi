@@ -72,6 +72,20 @@ $pf = trim($_GET['pf']);
         return value;
     }
 
+    function confrim_delivery(openid, openkey, pf, token)
+    {
+        var url = "http://" + "<?php echo $config['game_server_url']; ?>" + "/payment/exchange/confirm.php";
+        var data = {};
+        data.openid = openid;
+        data.openkey = openkey;
+        data.pf = pf;
+        data.token = token;
+        $.get(url, data, function(res){
+            var jsonObj = JSON.parse(res);
+            alert(jsonObj.msg);
+        });
+    }
+
     function openChargeUrl()
     {
         var openid = getParams('openid');
@@ -80,18 +94,21 @@ $pf = trim($_GET['pf']);
         var serverid = getParams('serverid');
         var pfkey = getParams('pfkey');
 
-        var url = 'http://s14.app1105344749.qqopenapp.com/payment/';
+        var url = 'http://' + "<?php echo $config['game_server_url'];?>" + '/payment/';
         var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey };
         $.get(url, data, function(res) {
             var jsonObj = JSON.parse(res);
             if (jsonObj.ret == 0) {
                 var url_params = jsonObj.url_params;
+                var token = jsonObj.token;
                 fusion2.dialog.buy({
                     disturb : true,
                     param : url_params,
                     sandbox : true,
                     context : "xyzml",
                     onSuccess : function (opt) {
+                        //alert('支付成功');
+                        confrim_delivery(openid, openkey, pf, token);
                     },
                     onCancel : function (opt) {
                     },

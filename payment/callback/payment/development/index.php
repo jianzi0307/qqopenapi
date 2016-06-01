@@ -37,6 +37,8 @@ if ($chkSig) {
         //$res = CashLogs::sql("update ". $config['db.tbpre'] . "cash_logs set `orderno` = '".$billno."' , `paytime` = ".time().", `status` = 1 where token='" . $token ."'");
         $cashLogInfo[0]->orderno = $billno;
         $cashLogInfo[0]->paytime = time();
+        $cashLogInfo[0]->payitem = $payitem;
+        $cashLogInfo[0]->payamt_coins = $payamt_coins;
         $cashLogInfo[0]->status = 1;
         $cashLogInfo[0]->update();
 
