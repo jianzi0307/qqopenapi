@@ -9,6 +9,9 @@ return array(
     //切换沙盒与现网状态
     "is_sendbox" => false,
 
+    //充值开关， 0 关闭 1开启
+    "pay_is_open" => 1,
+
     //现网环境，OpenAPI地址
     "server_name_online" => 'openapi.tencentyun.com',
 

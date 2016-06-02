@@ -10,6 +10,13 @@ $appid = $config['appid'];
 $appkey = $config['appkey'];
 
 $server_name = $config['is_sendbox'] ? $config['server_name_sendbox'] : $config['server_name_online'];
+$pay_is_open = $config['pay_is_open'];
+
+//充值已关闭
+if ($pay_is_open == 0) {
+    echo json_encode(array("ret"=>-99999,"msg"=>"充值功能暂未开通."));
+    die;
+}
 
 //amttype
 $pfkey = trim($_GET['pfkey']);

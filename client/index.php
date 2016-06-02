@@ -98,27 +98,31 @@ $pf = trim($_GET['pf']);
         var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey };
         $.get(url, data, function(res) {
             var jsonObj = JSON.parse(res);
-            if (jsonObj.ret == 0) {
-                var url_params = jsonObj.url_params;
-                var token = jsonObj.token;
-                fusion2.dialog.buy({
-                    disturb : true,
-                    param : url_params,
-                    sandbox : false,
-                    context : "xyzml",
-                    onSuccess : function (opt) {
-                        //alert('支付成功');
-                        confrim_delivery(openid, openkey, pf, token);
-                    },
-                    onCancel : function (opt) {
-                    },
-                    onSend : function(opt) {
-                    },
-                    onClose : function (opt) {
-                    }
-                });
+            if (jsonObj.ret != -99999) {
+                if (jsonObj.ret == 0) {
+                    var url_params = jsonObj.url_params;
+                    var token = jsonObj.token;
+                    fusion2.dialog.buy({
+                        disturb: true,
+                        param: url_params,
+                        sandbox: false,
+                        context: "xyzml",
+                        onSuccess: function (opt) {
+                            //alert('支付成功');
+                            confrim_delivery(openid, openkey, pf, token);
+                        },
+                        onCancel: function (opt) {
+                        },
+                        onSend: function (opt) {
+                        },
+                        onClose: function (opt) {
+                        }
+                    });
+                } else {
+                    alert('error: ' + jsonObj.ret + ' :: ' + jsonObj.msg);
+                }
             } else {
-                alert('error: ' + jsonObj.ret + ' :: ' + jsonObj.msg);
+                alert(jsonObj.msg);
             }
         });
     }
