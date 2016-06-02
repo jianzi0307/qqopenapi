@@ -1,4 +1,29 @@
 <?php
+/**
+ * 刷新用户的元宝
+ * @param $host
+ * @param $port
+ * @param $name
+ * @param $password
+ * @param $uid
+ */
+function sock_refresh_balance($host, $port, $name, $password, $uid)
+{
+    $client = new swoole_client(SWOOLE_SOCK_TCP);
+    if (!$client->connect($host, $port, -1)) {
+        //exit("connect failed. Error: {$client->errCode}\n");
+        \SeasLog::info("connect failed. Error: {$client->errCode}\n");
+        return;
+    }
+    $client->send("LOGIN name=".$name." password=".$password."\r\n");
+    $res = $client->recv();
+    $client->send("refreshbalance uid=".$uid."\r\n");
+    $res .= $client->recv();
+    $client->send("Quit");
+    $res .= $client->recv();
+    \SeasLog::info("=================sock response:::: \r\n" . $res);
+    $client->close();
+}
 
 /**
  * 当前用户ip地址

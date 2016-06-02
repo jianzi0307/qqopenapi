@@ -7,7 +7,7 @@ return array(
     "appkey" => 'nnF1KA3vOSFaUmQl',
 
     //切换沙盒与现网状态
-    "is_sendbox" => false,
+    "is_sendbox" => true,
 
     //充值开关， 0 关闭 1开启
     "pay_is_open" => 1,
@@ -43,6 +43,12 @@ return array(
     //redis
     "redis.host" => '127.0.0.1',
     "redis.port" => 6379,
+
+    //game server sock
+    "sock_host" => '127.0.0.1',
+    "sock_port" => 7000,
+    "sock_user" => 'zml',
+    "sock_password" => 'zml123',
 
     //充值比例
     "pay.rate" => 10

@@ -64,6 +64,24 @@ if ($chkSig) {
         }
         $resJson = json_encode(array("ret"=>0, "msg"=>"OK"));
         \SeasLog::info("versifySig::::: ok. " . $resJson);
+
+
+
+        //通过openid获取用户uid，发给服务器，调用refresh balance
+        $redis = new Redis();
+        $redis->connect($config['redis.host'], $config['redis.port']);
+        if ($redis->exists('user'. $openid)) {
+            $userid = $redis->get('user'. $openid);
+        } else {
+            $user = new User();
+            $userInfo = $user::retrieveByField('openid', $openid, SimpleOrm::FETCH_ONE);
+            $userid = $userInfo->id;
+            $redis->set('user'.$openid, $userid);
+        }
+        //发socket到游戏服务器刷新
+        sock_refresh_balance($config['sock_host'], $config['sock_port'], $config['sock_user'], $config['sock_password'], $userid);
+
+
     } else {
         $resJson = json_encode(array("ret"=>3, "msg"=>"token不存在"));
         \SeasLog::info("versifySig::::: failed. " . $resJson);
