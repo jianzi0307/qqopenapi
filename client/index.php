@@ -104,7 +104,7 @@ $pf = trim($_GET['pf']);
                 fusion2.dialog.buy({
                     disturb : true,
                     param : url_params,
-                    sandbox : true,
+                    sandbox : false,
                     context : "xyzml",
                     onSuccess : function (opt) {
                         //alert('支付成功');

@@ -8,7 +8,8 @@ require_once (__DIR__ . '/../includes/global.inc.php');
 
 $appid = $config['appid'];
 $appkey = $config['appkey'];
-$server_name = $config['server_name'];
+
+$server_name = $config['is_sendbox'] ? $config['server_name_sendbox'] : $config['server_name_online'];
 
 //amttype
 $pfkey = trim($_GET['pfkey']);

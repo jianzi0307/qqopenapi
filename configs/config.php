@@ -6,8 +6,14 @@ return array(
     //APP KEY
     "appkey" => 'nnF1KA3vOSFaUmQl',
 
-    //tencent openapi server ip(测试环境) openapi.tencentyun.com(正式环境)
-    "server_name" => '119.147.19.43',
+    //切换沙盒与现网状态
+    "is_sendbox" => false,
+
+    //现网环境，OpenAPI地址
+    "server_name_online" => 'openapi.tencentyun.com',
+
+    //沙盒环境，OpenAPI地址
+    "server_name_sendbox" => '119.147.19.43',
 
     //Game Site
     "game_site" => 'http://www.752g.com',

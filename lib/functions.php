@@ -35,7 +35,27 @@ function get_user_info($sdk, $openid, $openkey, $pf)
 	);
 	
 	$script_name = '/v3/user/get_info';
-	return $sdk->api($script_name, $params,'post');
+	return $sdk->api($script_name, $params,'post', 'https');
+}
+
+/**
+ * 验证登录用户是否黄钻，是否年费黄钻，如果是则返回其黄钻等级等信息。
+ * @param $sdk
+ * @param $openid
+ * @param $openkey
+ * @param $pf
+ * @return mixed
+ */
+function is_vip($sdk, $openid, $openkey, $pf)
+{
+    $params = array(
+        'openid' => $openid,
+        'openkey' => $openkey,
+        'pf' => $pf,
+    );
+
+    $script_name = '/v3/user/is_vip';
+    return $sdk->api($script_name, $params,'post', 'https');
 }
 
 /**
@@ -55,7 +75,7 @@ function user_is_login($sdk, $openid, $openkey, $pf)
     );
 
     $script_name = 'v3/user/is_login';
-    return $sdk->api($script_name, $params, 'post');
+    return $sdk->api($script_name, $params, 'post', 'https');
 }
 
 /**
@@ -76,7 +96,7 @@ function pay_buy($sdk, $openid, $openkey, $pf, $data)
     );
     $reqData = array_merge($params, $data);
     $script_name = '/v3/pay/buy_goods';
-    return $sdk->api($script_name, $reqData, 'post');
+    return $sdk->api($script_name, $reqData, 'post', 'https');
 }
 
 /**
