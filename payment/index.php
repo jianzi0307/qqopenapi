@@ -35,6 +35,7 @@ $sdk->setServerName($server_name);
 
 $data = array(
     'amt' => $amt,
+//    'paymode' => 1,
     'payitem' => $payitem,
     'goodsmeta' => $goodsmeta,
     'goodsurl' => $goodsurl,
