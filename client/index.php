@@ -16,9 +16,10 @@ $pf = trim($_GET['pf']);
     <title>仙域斩魔录</title>
     <style type="text/css">
         html,body { background: #000; padding: 0; margin: 0; width: 100%; height: 100%; text-align: center; overflow: hidden; font-size: 12px; }
-        .content-box {width: 100%; height: 100%; margin: 0 auto; padding: 0;}
+        .content-box {width: 100%; height: 94%; margin: 0 auto; padding: 0;}
         .flasharea {width: 100%; height: 100%; overflow:hidden;}
         .footer {color: #c19725; width: 100%; height: 18px; text-align: center; padding: 3px;}
+        .redtext {color:red;}
     </style>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo $svrUrl;?>/script/swfobject.js?version=1.0.7"></script>
@@ -47,8 +48,8 @@ $pf = trim($_GET['pf']);
     <div id="flasharea" class="flasharea">
         <div id="main">Loading Game...</div>
     </div>
-    <div id="footer" class="footer"></div>
 </div>
+<div id="footer" class="footer"></div>
 <!--腾讯开平-->
 <script type="text/javascript" charset="utf-8" src="http://fusion.qq.com/fusion_loader?appid=<?php echo $appid; ?>&platform=<?php echo $pf;?>"></script>
 <script>
@@ -126,11 +127,15 @@ $pf = trim($_GET['pf']);
             }
         });
     }
-    /*$(function(){
-        $('#pay_buy').on('click', function(){
+    $(function(){
+        /*$('#pay_buy').on('click', function(){
             openChargeUrl();
-        });
-    });*/
+        });*/
+        //底部客服声明
+        var playerHtml = "玩家账号：" + getParams('openid') + " ";
+        var statementHtml = '声明：【仙域斩魔录】是由“北京飞扬天下”提供，如你在游戏中遇到任何问题，可加入QQ群<span class="redtext">564180852</span>咨询，进入<a class="redtext" href="http://bbs.open.qq.com/forum.php?mod=forumdisplay&action=list&fid=5036" target="_blank">【论坛】</a>。';
+        $('#footer').html(playerHtml + statementHtml);
+    });
 </script>
 </body>
 </html>
