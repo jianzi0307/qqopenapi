@@ -22,10 +22,10 @@ $pf = trim($_GET['pf']);
         .redtext {color:red;}
     </style>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/swfobject.js?version=1.0.8"></script>
-    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/core.js?version=1.0.8"></script>
+    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/swfobject.js?version=1.0.9"></script>
+    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/core.js?version=1.0.9"></script>
     <script type="text/javascript">
-        var swfversion="1.0.8";
+        var swfversion="1.0.9";
         var xiswfurl="<?php echo $svrUrl;?>/playerProductInstall.swf";
         var flashvars={name:"Loading"};
         var params={};
@@ -37,7 +37,7 @@ $pf = trim($_GET['pf']);
         attributes.id="Loading";
         attributes.name="Loading";
         attributes.align="middle";
-        swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.8.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
+        swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.9.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
     </script>
 </head>
 <body>
@@ -87,7 +87,12 @@ $pf = trim($_GET['pf']);
         });
     }
 
-    function openChargeUrl()
+    function buy(goldid) {
+        //alert(goldid);
+        openChargeUrl(goldid);
+    }
+
+    function openChargeUrl(goldid)
     {
         var openid = getParams('openid');
         var openkey = getParams('openkey');
@@ -96,7 +101,7 @@ $pf = trim($_GET['pf']);
         var pfkey = getParams('pfkey');
 
         var url = 'http://' + "<?php echo $config['game_server_url'];?>" + '/payment/';
-        var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey };
+        var data = { openid: openid, openkey: openkey,pf:pf,serverid:serverid, pfkey:pfkey, goldid:goldid };
         $.get(url, data, function(res) {
             var jsonObj = JSON.parse(res);
             if (jsonObj.ret != -99999) {

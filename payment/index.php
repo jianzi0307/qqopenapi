@@ -24,11 +24,15 @@ $openid = trim($_GET['openid']);
 $serverid = trim($_GET['serverid']);
 $openkey = trim($_GET['openkey']);
 $pf = trim($_GET['pf']);
+$goldid = intval(trim($_GET['goldid']));
 
-$amt = 1000;///$_GET['amt'];
-$payitem = '5*1000*1';//$_GET['payitem'];
-$goodsmeta = "1000元宝*1000元宝";//$_GET['goodsmeta'];
-$goodsurl = "http://cdn.xyzml.752g.com/payment/yb1000.png";//$_GET['goodsurl'];
+//总Q点
+$amt = $goldid;//1000;///$_GET['amt'];
+//类型*单价*个数
+$payitem = '5*'.$goldid.'*1';//$_GET['payitem'];
+//名称*描述
+$goodsmeta = $goldid."元宝*".$goldid."元宝";//$_GET['goodsmeta'];
+$goodsurl = "http://cdn.xyzml.752g.com/payment/yb".$goldid.".png";//$_GET['goodsurl'];
 
 $sdk = new OpenApiV3($appid, $appkey);
 $sdk->setServerName($server_name);

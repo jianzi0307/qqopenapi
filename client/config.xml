@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 	<debug>0</debug>
 	<load>1</load>
 	<multiopen>10</multiopen>
