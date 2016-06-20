@@ -39,12 +39,17 @@ if ($openid && $openkey && $pf) {
         $platform_login_key = $config['platform_login_key'];
         $time = time();
         $tokenSign = md5($userid.$openid.$time.$platform_login_key);
+        $vipinfo = is_vip($sdk, $openid, $openkey, $pf);
+        if (isset($vipinfo['ret'])) {unset($vipinfo['ret']);}
+        if (isset($vipinfo['is_lost'])) {unset($vipinfo['is_lost']);}
         $urlQuery = array(
             'userid' => $userid,
             'username' => $openid,
+            'qqvip' => $vipinfo,
             'time' => $time,
             'sign' => $tokenSign
         );
+        \SeasLog::info("qq vip ===>>> " . json_encode($urlQuery));
         $token = base64_encode(json_encode($urlQuery));
         header('Location:http://'.$config['game_server_url'].'/client/?token='. $token . '&'.http_build_query($_GET));
     } else {

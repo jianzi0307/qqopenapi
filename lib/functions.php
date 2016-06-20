@@ -1,5 +1,15 @@
 <?php
 /**
+ * 删除数组中的特定元素
+ * @param $arr
+ * @param $offset
+ */
+function array_remove(&$arr, $offset)
+{
+    array_splice($arr, $offset, 1);
+}
+
+/**
  * 刷新用户的元宝
  * @param $host
  * @param $port

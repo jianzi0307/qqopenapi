@@ -22,10 +22,10 @@ $pf = trim($_GET['pf']);
         .redtext {color:red;}
     </style>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/swfobject.js?version=1.0.7"></script>
-    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/core.js?version=1.0.7"></script>
+    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/swfobject.js?version=1.0.8"></script>
+    <script type="text/javascript" src="<?php echo $svrUrl;?>/script/core.js?version=1.0.8"></script>
     <script type="text/javascript">
-        var swfversion="1.0.7";
+        var swfversion="1.0.8";
         var xiswfurl="<?php echo $svrUrl;?>/playerProductInstall.swf";
         var flashvars={name:"Loading"};
         var params={};
@@ -37,7 +37,7 @@ $pf = trim($_GET['pf']);
         attributes.id="Loading";
         attributes.name="Loading";
         attributes.align="middle";
-        swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.7.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
+        swfobject.embedSWF( "<?php echo $svrUrl;?>/Loading_1.0.8.swf","main","100%","100%",swfversion,xiswfurl,flashvars,params,attributes );
     </script>
 </head>
 <body>
