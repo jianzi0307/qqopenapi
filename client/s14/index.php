@@ -1,5 +1,5 @@
 <?php
-$config = require_once (__DIR__. '/../configs/config.php');
+$config = require_once (__DIR__. '/../../configs/config.php');
 //前端资源地址
 $svrUrl = "http://cdn.xyzml.752g.com";
 

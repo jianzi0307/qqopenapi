@@ -51,7 +51,9 @@ if ($openid && $openkey && $pf) {
         );
         \SeasLog::info("qq vip ===>>> " . json_encode($urlQuery));
         $token = base64_encode(json_encode($urlQuery));
-        header('Location:http://'.$config['game_server_url'].'/client/?token='. $token . '&'.http_build_query($_GET));
+//        echo $config['game_server_url'];die;
+        $gameServerHost = explode('.', $config['game_server_url']);
+        header('Location:http://'.$config['game_server_url'].'/client/'.$gameServerHost[0].'/?token='. $token . '&'.http_build_query($_GET));
     } else {
         header("Location: " . $config['game_site']);
     }

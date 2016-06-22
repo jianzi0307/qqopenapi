@@ -1,4 +1,5 @@
 <?php
+$serverHost = $_SERVER['HTTP_HOST'];
 return array(
     //APP ID
     "appid" => 1105344749,
@@ -22,7 +23,7 @@ return array(
     "game_site" => 'http://www.752g.com',
 
     //game server
-    "game_server_url" => "s14.app1105344749.qqopenapp.com",
+    "game_server_url" => $serverHost,//"s14.app1105344749.qqopenapp.com",
 
     //pay api
     "pay_server_url" => "/v3/pay/buy_goods",
@@ -46,7 +47,12 @@ return array(
 
     //game server sock
     "sock_host" => '127.0.0.1',
-    "sock_port" => 7000,
+    //同服会配置不同的端口
+    "sock_port" => array(
+        's14' => 7000,
+        's15' => 7001,
+        's16' => 7002
+    ),
     "sock_user" => 'zml',
     "sock_password" => 'zml123',
 

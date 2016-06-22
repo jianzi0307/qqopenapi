@@ -79,7 +79,9 @@ if ($chkSig) {
             $redis->set('user'.$openid, $userid);
         }
         //发socket到游戏服务器刷新
-        sock_refresh_balance($config['sock_host'], $config['sock_port'], $config['sock_user'], $config['sock_password'], $userid);
+        $serverHostUrl = explode('.', $config['game_server_url']);
+        $serverHost = $serverHostUrl[0];
+        sock_refresh_balance($config['sock_host'], $config['sock_port'][$serverHost], $config['sock_user'], $config['sock_password'], $userid);
 
 
     } else {
