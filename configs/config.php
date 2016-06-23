@@ -8,7 +8,7 @@ return array(
     "appkey" => 'nnF1KA3vOSFaUmQl',
 
     //切换沙盒与现网状态
-    "is_sendbox" => true,
+    "is_sendbox" => false,
 
     //充值开关， 0 关闭 1开启
     "pay_is_open" => 1,

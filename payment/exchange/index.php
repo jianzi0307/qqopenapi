@@ -19,7 +19,8 @@ if ($raw_post_data) {
     $sign = md5($serverid.$uid.$timestamp.$config['platform_exchange_key']);
     if ($sign == $key) {
         $cash = new Cash();
-        $goldInfo = Cash::sql("select * from ". $config['db.tbpre']."cash as c, ".$config['db.tbpre']."user as u where c.userid = u.openid and u.id = '".$uid."'" );
+        $goldInfo = Cash::sql("select * from ". $config['db.tbpre']."cash as c, ".$config['db.tbpre']."user as u where c.userid = u.openid and u.id = '".$uid."' and c.serverid = ".$serverid );
+        //\SeasLog::info("sql query: ". json_encode($goldInfo));
         if ($goldInfo) {
             $userCashInfo =  $goldInfo[0];
             $userOpenId = $userCashInfo->userid;
