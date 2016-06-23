@@ -1,6 +1,6 @@
 <?php
-ini_set("display_errors","On");
-error_reporting(E_ALL);
+//ini_set("display_errors","On");
+//error_reporting(E_ALL);
 
 require_once(__DIR__."/../OpenApiV3.php");
 require_once(__DIR__."/../lib/functions.php");

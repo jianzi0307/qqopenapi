@@ -108,6 +108,7 @@ $pf = trim($_GET['pf']);
                 if (jsonObj.ret == 0) {
                     var url_params = jsonObj.url_params;
                     var token = jsonObj.token;
+                    console.log(jsonObj);
                     fusion2.dialog.buy({
                         disturb: true,
                         param: url_params,
