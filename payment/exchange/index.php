@@ -8,8 +8,7 @@ $raw_post_data = file_get_contents("php://input");
 
 \SeasLog::info("=========================[ EXCHANGE ]=========================");
 
-\SeasLog::info("php://input:: " . $raw_post_data);
-
+\SeasLog::info(" php://input:: " . $raw_post_data);
 if ($raw_post_data) {
     $requestBody = json_decode($raw_post_data, true);
     $serverid = trim($requestBody['serverid']);

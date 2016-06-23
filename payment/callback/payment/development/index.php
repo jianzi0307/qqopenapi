@@ -34,6 +34,9 @@ if ($chkSig) {
     $cashLogs = new CashLogs();
     $cashLogInfo = CashLogs::sql("select * from ".$config['db.tbpre']."cash_logs where token = '". $token ."' and status = 0 " );
     if ($cashLogInfo) {
+        //根据token获取到当前重置的服务器
+        $serverId = $cashLogInfo[0]->serverid;
+
         //$res = CashLogs::sql("update ". $config['db.tbpre'] . "cash_logs set `orderno` = '".$billno."' , `paytime` = ".time().", `status` = 1 where token='" . $token ."'");
         $cashLogInfo[0]->orderno = $billno;
         $cashLogInfo[0]->paytime = time();
@@ -42,9 +45,8 @@ if ($chkSig) {
         $cashLogInfo[0]->status = 1;
         $cashLogInfo[0]->update();
 
-
         $cash = new Cash();
-        $cashInfo = Cash::sql("select * from ". $config['db.tbpre']."cash where `userid` = '".$openid."'");
+        $cashInfo = Cash::sql("select * from ". $config['db.tbpre']."cash where `userid` = '".$openid."' and `serverid` = ". $serverId);
 
         if ($cashInfo) {
             //$cashInfo[0]->userid = $openid;
@@ -56,6 +58,7 @@ if ($chkSig) {
             $cashInfo[0]->update();
         } else {
             $cash->userid = $openid;
+            $cash->serverid = $serverId;
             $cash->goldtotal = $amt / 10;
             $cash->extratotal = $cash->goldtotal;
             $cash->rmbtotal = ($amt / 10) / $config['pay.rate'];
@@ -64,7 +67,6 @@ if ($chkSig) {
         }
         $resJson = json_encode(array("ret"=>0, "msg"=>"OK"));
         \SeasLog::info("versifySig::::: ok. " . $resJson);
-
 
 
         //通过openid获取用户uid，发给服务器，调用refresh balance
@@ -79,10 +81,7 @@ if ($chkSig) {
             $redis->set('user'.$openid, $userid);
         }
         //发socket到游戏服务器刷新
-        $serverHostUrl = explode('.', $config['game_server_url']);
-        $serverHost = $serverHostUrl[0];
-        sock_refresh_balance($config['sock_host'], $config['sock_port'][$serverHost], $config['sock_user'], $config['sock_password'], $userid);
-
+        sock_refresh_balance($config['sock_host'], $config['sock_port'][intval($serverId)], $config['sock_user'], $config['sock_password'], $userid);
 
     } else {
         $resJson = json_encode(array("ret"=>3, "msg"=>"token不存在"));

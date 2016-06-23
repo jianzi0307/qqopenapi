@@ -8,7 +8,7 @@ return array(
     "appkey" => 'nnF1KA3vOSFaUmQl',
 
     //切换沙盒与现网状态
-    "is_sendbox" => false,
+    "is_sendbox" => true,
 
     //充值开关， 0 关闭 1开启
     "pay_is_open" => 1,
@@ -49,9 +49,9 @@ return array(
     "sock_host" => '127.0.0.1',
     //同服会配置不同的端口
     "sock_port" => array(
-        's14' => 7000,
-        's15' => 7001,
-        's16' => 7002
+        14 => 7000,
+        15 => 7001,
+        16 => 7002
     ),
     "sock_user" => 'zml',
     "sock_password" => 'zml123',

@@ -49,6 +49,8 @@ $data = array(
     'serverid'=> $serverid
 );
 $ret = pay_buy($sdk , $openid, $openkey, $pf, $data);
+//\Seaslog::info(__FILE__." line:". __LINE__ ." : " .json_encode($data));
+//\Seaslog::info(__FILE__." line:". __LINE__ ." : " .json_encode($ret));
 if ($ret['ret'] == 0) {
     //记录token，作为支付单据，发货接口根据token生成订单
     $token = $ret['token'];

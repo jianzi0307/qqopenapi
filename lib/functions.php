@@ -22,7 +22,7 @@ function sock_refresh_balance($host, $port, $name, $password, $uid)
     $client = new swoole_client(SWOOLE_SOCK_TCP);
     if (!$client->connect($host, $port, -1)) {
         //exit("connect failed. Error: {$client->errCode}\n");
-        \SeasLog::info("connect failed. Error: {$client->errCode}\n");
+        \SeasLog::info("swoole client connect failed. Error: " .$host." - ".$port. " errorCode:{$client->errCode}\n");
         return;
     }
     $client->send("LOGIN name=".$name." password=".$password."\r\n");
@@ -31,7 +31,7 @@ function sock_refresh_balance($host, $port, $name, $password, $uid)
     $res .= $client->recv();
     $client->send("Quit");
     $res .= $client->recv();
-    \SeasLog::info("=================sock response:::: \r\n" . $res);
+    \SeasLog::info("|".$host.":".$port ."| =================sock response:::: \r\n" . $res);
     $client->close();
 }
 
