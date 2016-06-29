@@ -36,6 +36,7 @@ if ($chkSig) {
     if ($cashLogInfo) {
         //根据token获取到当前重置的服务器
         $serverId = $cashLogInfo[0]->serverid;
+        $Qd = $cashLogInfo[0]->gold;
 
         //$res = CashLogs::sql("update ". $config['db.tbpre'] . "cash_logs set `orderno` = '".$billno."' , `paytime` = ".time().", `status` = 1 where token='" . $token ."'");
         $cashLogInfo[0]->orderno = $billno;
@@ -51,15 +52,15 @@ if ($chkSig) {
         if ($cashInfo) {
             //$cashInfo[0]->userid = $openid;
 
-            $cashInfo[0]->goldtotal = $cashInfo[0]->goldtotal + ($amt / 10);
-            $cashInfo[0]->extratotal = $cashInfo[0]->extratotal + ($amt / 10);
+            $cashInfo[0]->goldtotal = $cashInfo[0]->goldtotal + $Qd;
+            $cashInfo[0]->extratotal = $cashInfo[0]->extratotal + $Qd;
             $cashInfo[0]->rmbtotal = $cashInfo[0]->rmbtotal + (($amt / 10) / $config['pay.rate']);
             $cashInfo[0]->updatetime = time();
             $cashInfo[0]->update();
         } else {
             $cash->userid = $openid;
             $cash->serverid = $serverId;
-            $cash->goldtotal = $amt / 10;
+            $cash->goldtotal = $Qd;
             $cash->extratotal = $cash->goldtotal;
             $cash->rmbtotal = ($amt / 10) / $config['pay.rate'];
             $cash->createtime = time();

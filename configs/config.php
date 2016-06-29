@@ -49,9 +49,9 @@ return array(
     "sock_host" => '127.0.0.1',
     //同服会配置不同的端口
     "sock_port" => array(
-        14 => 7000,
-        15 => 7001,
-        16 => 7002
+        14 => 7014,
+        15 => 7015,
+        16 => 7016
     ),
     "sock_user" => 'zml',
     "sock_password" => 'zml123',
